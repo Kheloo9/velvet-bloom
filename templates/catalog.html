@@ -1,9 +1,9 @@
-{% extends 'base.html' %}{% block t %}Catalog · Velvet Bloom{% endblock %}{% block c %}<h1>Catalog</h1>
+{% extends 'base.html' %}{% block t %}Catalog · Velvet Bloom{% endblock %}{% block c %}<div class="section-head"><p class="eyebrow">The collection</p><h1>Catalog</h1><p class="lede">Search by name or note, or filter by fragrance, occasion and price.</p></div>
 <form class="filters" method="get"><label>Search <input name="q" value="{{q}}" placeholder="Search name or note"></label>
 <label>Fragrance <select name="fragrance"><option value="">Any fragrance</option>{% for f in ['floral','woody','citrus','fresh','sweet'] %}<option value="{{f}}" {% if fragrance==f %}selected{% endif %}>{{f}}</option>{% endfor %}</select></label>
 <label>Occasion <select name="occasion"><option value="">Any occasion</option>{% for o in ['office','university','party','wedding','daily'] %}<option value="{{o}}" {% if occasion==o %}selected{% endif %}>{{o}}</option>{% endfor %}</select></label>
 <label>Max price <input name="max_price" value="{{max_price}}" placeholder="Max price Rs" inputmode="numeric"></label><button>Search</button></form>
-<div class="grid">{% for p in items %}<div class="card"><h2><a href="/product/{{p.id}}">{{p.name}}</a></h2><p class="tag">{{p.category}} · {{p.fragrance}} · {{p.strength}}</p>
-<p>Notes: {{p.top}}; {{p.middle}}; {{p.base}}</p><p><b>Rs {{ "{:,}".format(p.price) }}</b> · {{p.stock}} in stock</p>
-{% if p.stock > 0 %}<form method="post" action="/cart/add/{{p.id}}"><button>Add to cart</button></form>{% else %}<p><b>Out of stock</b></p>{% endif %}
-{% if user %}<form method="post" action="/wishlist/toggle/{{p.id}}"><button class="ghost">♥ Wishlist</button></form>{% endif %}</div>{% else %}<p>No perfumes match. Try removing a filter.</p>{% endfor %}</div>{% endblock %}
+<div class="grid">{% for p in items %}<article class="card"><div class="bottle bottle-{{p.fragrance}}" aria-hidden="true"><span class="cap"></span><span class="neck"></span><span class="body">{{p.name[0]}}</span></div><h2><a href="/product/{{p.id}}">{{p.name}}</a></h2><p class="chips"><span class="chip">{{p.category}}</span> <span class="chip">{{p.fragrance}}</span> <span class="chip">{{p.strength}}</span></p>
+<p>Notes: {{p.top}}; {{p.middle}}; {{p.base}}</p><p><span class="price">Rs {{ "{:,}".format(p.price) }}</span> · <span class="stock {% if p.stock > 0 %}stock-ok{% else %}stock-out{% endif %}">{{p.stock}} in stock</span></p>
+<div class="card-actions">{% if p.stock > 0 %}<form method="post" action="/cart/add/{{p.id}}"><button>Add to cart</button></form>{% else %}<p><b>Out of stock</b></p>{% endif %}
+{% if user %}<form method="post" action="/wishlist/toggle/{{p.id}}"><button class="ghost">♥ Wishlist</button></form>{% endif %}</div></article>{% else %}<p>No perfumes match. Try removing a filter.</p>{% endfor %}</div>{% endblock %}

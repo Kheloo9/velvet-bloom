@@ -1,2 +1,2 @@
-{% extends 'base.html' %}{% block t %}Checkout · Velvet Bloom{% endblock %}{% block c %}<h1>Checkout — Demo / Cash on Delivery</h1><p>No real payment is taken. Total: <b>Rs {{ "{:,}".format(total) }}</b></p>
-<form method="post" class="form"><label>Delivery address <textarea name="address" required></textarea></label><button>Place demo order</button></form>{% endblock %}
+{% extends 'base.html' %}{% block t %}Checkout · Velvet Bloom{% endblock %}{% block c %}<div class="panel auth-card"><h1>Checkout — Demo / Cash on Delivery</h1><p>No real payment is taken. Total: <b>Rs {{ "{:,}".format(total) }}</b></p>
+<form method="post" class="form"><label>Delivery address <textarea name="address" required></textarea></label><button>Place demo order</button></form></div>{% endblock %}

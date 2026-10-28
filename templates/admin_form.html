@@ -1,5 +1,5 @@
-{% extends 'base.html' %}{% block t %}Add/Edit perfume · Velvet Bloom{% endblock %}{% block c %}<h1>{{ 'Edit' if p else 'Add' }} perfume</h1>
-<form method="post" class="form">
+{% extends 'base.html' %}{% block t %}Add/Edit perfume · Velvet Bloom{% endblock %}{% block c %}<div class="panel auth-card" style="max-width:620px"><h1>{{ 'Edit' if p else 'Add' }} perfume</h1>
+<form method="post" class="form" style="max-width:none">
 <label>Perfume name <input name="name" value="{{p['name'] if p else ''}}" required></label>
 <label>Category <input name="category" value="{{p['category'] if p else ''}}" required></label>
 <label>Fragrance <select name="fragrance">{% for f in ['floral','woody','citrus','fresh','sweet'] %}<option value="{{f}}" {% if p and p['fragrance']==f %}selected{% endif %}>{{f}}</option>{% endfor %}</select></label>
@@ -13,4 +13,4 @@
 <label>Base notes <input name="base" value="{{p['base'] if p else ''}}" required></label>
 <label>Description <textarea name="description" required>{{p['description'] if p else ''}}</textarea></label>
 <button>Save</button></form>
-<p>Hint: occasions/seasons are comma lists, e.g. wedding,party. Fragrance: floral/woody/citrus/fresh/sweet.</p>{% endblock %}
+<p>Hint: occasions/seasons are comma lists, e.g. wedding,party. Fragrance: floral/woody/citrus/fresh/sweet.</p></div>{% endblock %}

@@ -1,8 +1,8 @@
-{% extends 'base.html' %}{% block t %}My Fragrance Profile · Velvet Bloom{% endblock %}{% block c %}<h1>My Fragrance Profile</h1>
-<form method="post" class="form">
+{% extends 'base.html' %}{% block t %}My Fragrance Profile · Velvet Bloom{% endblock %}{% block c %}<div class="section-head"><p class="eyebrow">Your taste</p><h1>My Fragrance Profile</h1></div>
+<div class="panel"><form method="post" class="form">
 <label>Fragrance <select name="fragrance"><option value="">Any</option>{% for f in ['floral','woody','citrus','fresh','sweet'] %}<option value="{{f}}" {% if pref and pref.fragrance==f %}selected{% endif %}>{{f}}</option>{% endfor %}</select></label>
 <label>Occasion <select name="occasion"><option value="">Any</option>{% for o in ['office','university','party','wedding','daily'] %}<option value="{{o}}" {% if pref and pref.occasion==o %}selected{% endif %}>{{o}}</option>{% endfor %}</select></label>
 <label>Strength <select name="strength"><option value="">Any</option><option value="soft" {% if pref and pref.strength=='soft' %}selected{% endif %}>soft</option><option value="strong" {% if pref and pref.strength=='strong' %}selected{% endif %}>strong</option></select></label>
 <label>Season <select name="season"><option value="">Any</option>{% for s in ['summer','winter','spring','autumn'] %}<option value="{{s}}" {% if pref and pref.season==s %}selected{% endif %}>{{s}}</option>{% endfor %}</select></label>
-<label>Max price <input name="max_price" value="{{pref.budget_max if pref else ''}}"></label><button>Save profile</button></form>
-{% if recs %}<h2>Personalised for you</h2>{% for s,p,r in recs %}<div class="card"><h3><a href="/product/{{p.id}}">{{p.name}}</a> — Rs {{ "{:,}".format(p.price) }}</h3><p>{{r|join(' · ')}}</p></div>{% endfor %}{% endif %}{% endblock %}
+<label>Max price <input name="max_price" value="{{pref.budget_max if pref else ''}}"></label><button>Save profile</button></form></div>
+{% if recs %}<h2>Personalised for you</h2>{% for s,p,r in recs %}<div class="card result-card"><h3><a href="/product/{{p.id}}">{{p.name}}</a> — Rs {{ "{:,}".format(p.price) }}</h3><ul class="reasons">{% for reason in r %}<li>{{reason}}</li>{% endfor %}</ul></div>{% endfor %}{% endif %}{% endblock %}

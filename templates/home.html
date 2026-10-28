@@ -1,7 +1,36 @@
-{% extends 'base.html' %}{% block t %}Home · Velvet Bloom{% endblock %}{% block c %}<section class="hero"><h1>Find a perfume that fits you.</h1>
-<p>Velvet Bloom pairs a perfume catalog with a rule-based AI finder, a short quiz, a DNA matcher and a catalog-aware chatbot — no paid AI service needed for the demo.</p>
-<p><a class="btn" href="/finder">Try the AI Finder</a> <a class="btn ghost" href="/catalog">Browse catalog</a></p></section>
-<h2>Featured perfumes</h2><div class="grid">{% for p in featured %}<div class="card"><h3><a href="/product/{{p.id}}">{{p.name}}</a></h3><p class="tag">{{p.category}} · {{p.fragrance}} · {{p.strength}}</p>
-<p>Notes: {{p.top}}; {{p.middle}}; {{p.base}}</p><p><b>Rs {{ "{:,}".format(p.price) }}</b> · {{p.stock}} in stock</p>
-{% if p.stock > 0 %}<form method="post" action="/cart/add/{{p.id}}"><button>Add to cart</button></form>{% else %}<p><b>Out of stock</b></p>{% endif %}
-{% if user %}<form method="post" action="/wishlist/toggle/{{p.id}}"><button class="ghost">♥ Wishlist</button></form>{% endif %}</div>{% endfor %}</div>{% endblock %}
+{% extends 'base.html' %}{% block t %}Home · Velvet Bloom{% endblock %}{% block c %}<section class="hero"><div><p class="eyebrow">Luxury perfume · AI-guided choice</p><h1>Find a perfume that fits you.</h1>
+<p class="lede">Velvet Bloom pairs a perfume catalog with a rule-based AI finder, a short quiz, a DNA matcher and a catalog-aware chatbot — no paid AI service needed for the demo.</p>
+<p class="btn-row"><a class="btn btn-gold" href="/finder">Try the AI Finder</a> <a class="btn btn-outline" href="/catalog">Browse catalog</a></p>
+<p class="hero-stats"><span>✦ 14 sample perfumes</span><span>✦ Ranked with reasons</span><span>✦ No real payment</span></p></div>
+<svg class="hero-bottle" width="150" height="230" viewBox="0 0 140 230" aria-hidden="true"><defs><linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8c96a"/><stop offset=".5" stop-color="#4a102e"/><stop offset="1" stop-color="#2a071c"/></linearGradient></defs><rect x="55" y="6" width="30" height="24" rx="5" fill="#c9a227"/><rect x="62" y="30" width="16" height="24" fill="#f5e7b8" stroke="#c9a227"/><path d="M32 54 C32 42 108 42 108 54 L108 178 C108 208 32 208 32 178 Z" fill="url(#heroGrad)" stroke="#c9a227" stroke-width="2"/><ellipse cx="58" cy="110" rx="10" ry="52" fill="#ffffff" opacity=".22"/><circle cx="98" cy="80" r="4" fill="#e8c96a"/></svg></section>
+
+<section aria-label="What you can do here"><div class="section-head"><p class="eyebrow">Start here</p><h2>Four ways to find your scent</h2><p>Pick a path — every suggestion comes from the real catalog, with its price and stock.</p></div>
+<div class="grid grid-4">
+<div class="card"><h3><a href="/finder">🔍 AI Finder</a></h3><p>Fragrance, occasion, budget and season — ranked, with reasons.</p><p><a class="btn" href="/finder">Open Finder</a></p></div>
+<div class="card"><h3><a href="/quiz">✦ Perfume Quiz</a></h3><p>Four quick questions reveal your fragrance personality.</p><p><a class="btn" href="/quiz">Take the Quiz</a></p></div>
+<div class="card"><h3><a href="/dna">🧬 DNA Matcher</a></h3><p>Love one perfume? Find others that share its notes.</p><p><a class="btn" href="/dna">Match Notes</a></p></div>
+<div class="card"><h3><a href="/chat">💬 Chatbot</a></h3><p>Ask in English or Roman English — answers use catalog data only.</p><p><a class="btn" href="/chat">Ask the Bot</a></p></div>
+</div></section>
+
+<section aria-label="Featured perfumes"><div class="section-head"><p class="eyebrow">Featured</p><h2>Featured perfumes</h2><p>From the sample catalog — tap any perfume for its full notes.</p></div>
+<div class="grid">{% for p in featured %}<article class="card"><div class="bottle bottle-{{p.fragrance}}" aria-hidden="true"><span class="cap"></span><span class="neck"></span><span class="body">{{p.name[0]}}</span></div><h3><a href="/product/{{p.id}}">{{p.name}}</a></h3><p class="chips"><span class="chip">{{p.category}}</span> <span class="chip">{{p.fragrance}}</span> <span class="chip">{{p.strength}}</span></p>
+<p>Notes: {{p.top}}; {{p.middle}}; {{p.base}}</p><p><span class="price">Rs {{ "{:,}".format(p.price) }}</span> · <span class="stock {% if p.stock > 0 %}stock-ok{% else %}stock-out{% endif %}">{{p.stock}} in stock</span></p>
+<div class="card-actions">{% if p.stock > 0 %}<form method="post" action="/cart/add/{{p.id}}"><button>Add to cart</button></form>{% else %}<p><b>Out of stock</b></p>{% endif %}
+{% if user %}<form method="post" action="/wishlist/toggle/{{p.id}}"><button class="ghost">♥ Wishlist</button></form>{% endif %}</div></article>{% endfor %}</div></section>
+
+<section aria-label="Shop by occasion"><div class="section-head"><p class="eyebrow">Shop by occasion</p><h2>What is it for?</h2><p>Jump straight to perfumes suited to the moment.</p></div>
+<div class="grid grid-4">
+<div class="card"><h3>💼 Office</h3><p>Soft, clean scents for work days.</p><p><a class="btn" href="/catalog?occasion=office">Shop office →</a></p></div>
+<div class="card"><h3>🎓 University</h3><p>Fresh, everyday scents for campus.</p><p><a class="btn" href="/catalog?occasion=university">Shop university →</a></p></div>
+<div class="card"><h3>🎉 Party</h3><p>Warmer, bolder scents for evenings out.</p><p><a class="btn" href="/catalog?occasion=party">Shop party →</a></p></div>
+<div class="card"><h3>💍 Wedding</h3><p>Rich, special-day scents for celebrations.</p><p><a class="btn" href="/catalog?occasion=wedding">Shop wedding →</a></p></div>
+<div class="card"><h3>🌿 Daily wear</h3><p>Easy scents you can reach for every day.</p><p><a class="btn" href="/catalog?occasion=daily">Shop daily →</a></p></div>
+</div></section>
+
+<section aria-label="How the AI helps"><div class="section-head"><p class="eyebrow">How the AI helps</p><h2>Help that explains itself</h2><p>No mystery recommendations: you always see why a perfume was suggested.</p></div>
+<div class="grid grid-4">
+<div class="card"><h3>1 · Tell it your taste</h3><p>Use the Finder or Quiz to set fragrance, occasion, strength, season and budget.</p></div>
+<div class="card"><h3>2 · See ranked reasons</h3><p>Each result lists its matches — fragrance, occasion, season, strength and budget.</p></div>
+<div class="card"><h3>3 · Compare by notes</h3><p>The DNA Matcher shows exactly which notes two perfumes share.</p></div>
+<div class="card"><h3>4 · Ask, then decide</h3><p>The chatbot answers only from catalog prices, notes and stock — never invented perfumes.</p></div>
+</div></section>{% endblock %}
