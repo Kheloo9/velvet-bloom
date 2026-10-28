@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block t %}Chatbot · Velvet Bloom{% endblock %}{% block c %}<h1>Perfume Chatbot (rule-based, no LLM)</h1><p>Ask in English or Roman English, e.g. “fresh perfume for university under 4000” or a perfume name.</p>
+<form method="post" class="form"><label>Your question <input name="message" required></label><button>Ask</button></form>
+{% if answer %}<div class="card"><p>{{answer}}</p></div>{% endif %}
+<p>API: POST /api/chat with JSON {"message": "..."} returns {"answer": "..."}.</p>{% endblock %}

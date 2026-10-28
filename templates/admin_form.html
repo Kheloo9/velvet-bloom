@@ -1,0 +1,16 @@
+{% extends 'base.html' %}{% block t %}Add/Edit perfume · Velvet Bloom{% endblock %}{% block c %}<h1>{{ 'Edit' if p else 'Add' }} perfume</h1>
+<form method="post" class="form">
+<label>Perfume name <input name="name" value="{{p['name'] if p else ''}}" required></label>
+<label>Category <input name="category" value="{{p['category'] if p else ''}}" required></label>
+<label>Fragrance <select name="fragrance">{% for f in ['floral','woody','citrus','fresh','sweet'] %}<option value="{{f}}" {% if p and p['fragrance']==f %}selected{% endif %}>{{f}}</option>{% endfor %}</select></label>
+<label>Occasions (comma list) <input name="occasions" value="{{p['occasions'] if p else ''}}" required></label>
+<label>Seasons (comma list) <input name="seasons" value="{{p['seasons'] if p else ''}}" required></label>
+<label>Strength <select name="strength"><option value="soft" {% if p and p['strength']=='soft' %}selected{% endif %}>soft</option><option value="strong" {% if p and p['strength']=='strong' %}selected{% endif %}>strong</option></select></label>
+<label>Price (Rs) <input type="number" min="0" max="10000000" name="price" value="{{p['price'] if p else ''}}" required></label>
+<label>Stock <input type="number" min="0" max="10000" name="stock" value="{{p['stock'] if p else ''}}" required></label>
+<label>Top notes <input name="top" value="{{p['top'] if p else ''}}" required></label>
+<label>Middle notes <input name="middle" value="{{p['middle'] if p else ''}}" required></label>
+<label>Base notes <input name="base" value="{{p['base'] if p else ''}}" required></label>
+<label>Description <textarea name="description" required>{{p['description'] if p else ''}}</textarea></label>
+<button>Save</button></form>
+<p>Hint: occasions/seasons are comma lists, e.g. wedding,party. Fragrance: floral/woody/citrus/fresh/sweet.</p>{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}{% block t %}Perfume Quiz · Velvet Bloom{% endblock %}{% block c %}<h1>Perfume Quiz</h1><p>Pick one answer per question. Your personality maps to a fragrance family.</p>
+<form method="post" class="form">
+<label>1. Favourite smell? <select name="q1"><option value="floral">Flowers</option><option value="fresh">Fresh air / sea</option><option value="woody">Wood / oud</option><option value="sweet">Vanilla / honey</option><option value="citrus">Lemon / orange</option></select></label>
+<label>2. Ideal evening? <select name="q2"><option value="floral">A wedding</option><option value="fresh">A walk with friends</option><option value="woody">A formal dinner</option><option value="sweet">A party</option><option value="citrus">A summer outing</option></select></label>
+<label>3. Pick a scent style? <select name="q3"><option value="floral">Floral</option><option value="fresh">Fresh</option><option value="woody">Woody</option><option value="sweet">Sweet</option><option value="citrus">Citrus</option></select></label>
+<label>4. Season? <select name="q4"><option value="floral">Spring</option><option value="fresh">Summer</option><option value="woody">Winter</option><option value="sweet">Autumn</option><option value="citrus">Summer</option></select></label>
+<label>Max price (Rs) <input name="max_price"></label><button>See my personality</button></form>
+{% if personality %}<h2>You are: {{personality}}</h2>{% for s,p,r in results %}<div class="card"><h3><a href="/product/{{p.id}}">{{p.name}}</a> — Rs {{ "{:,}".format(p.price) }}</h3><p>{{r|join(' · ')}}</p></div>{% endfor %}{% endif %}{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% block t %}Catalog · Velvet Bloom{% endblock %}{% block c %}<h1>Catalog</h1>
+<form class="filters" method="get"><label>Search <input name="q" value="{{q}}" placeholder="Search name or note"></label>
+<label>Fragrance <select name="fragrance"><option value="">Any fragrance</option>{% for f in ['floral','woody','citrus','fresh','sweet'] %}<option value="{{f}}" {% if fragrance==f %}selected{% endif %}>{{f}}</option>{% endfor %}</select></label>
+<label>Occasion <select name="occasion"><option value="">Any occasion</option>{% for o in ['office','university','party','wedding','daily'] %}<option value="{{o}}" {% if occasion==o %}selected{% endif %}>{{o}}</option>{% endfor %}</select></label>
+<label>Max price <input name="max_price" value="{{max_price}}" placeholder="Max price Rs" inputmode="numeric"></label><button>Search</button></form>
+<div class="grid">{% for p in items %}<div class="card"><h2><a href="/product/{{p.id}}">{{p.name}}</a></h2><p class="tag">{{p.category}} · {{p.fragrance}} · {{p.strength}}</p>
+<p>Notes: {{p.top}}; {{p.middle}}; {{p.base}}</p><p><b>Rs {{ "{:,}".format(p.price) }}</b> · {{p.stock}} in stock</p>
+{% if p.stock > 0 %}<form method="post" action="/cart/add/{{p.id}}"><button>Add to cart</button></form>{% else %}<p><b>Out of stock</b></p>{% endif %}
+{% if user %}<form method="post" action="/wishlist/toggle/{{p.id}}"><button class="ghost">♥ Wishlist</button></form>{% endif %}</div>{% else %}<p>No perfumes match. Try removing a filter.</p>{% endfor %}</div>{% endblock %}

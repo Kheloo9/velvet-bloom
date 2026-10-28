@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block t %}Home · Velvet Bloom{% endblock %}{% block c %}<section class="hero"><h1>Find a perfume that fits you.</h1>
+<p>Velvet Bloom pairs a perfume catalog with a rule-based AI finder, a short quiz, a DNA matcher and a catalog-aware chatbot — no paid AI service needed for the demo.</p>
+<p><a class="btn" href="/finder">Try the AI Finder</a> <a class="btn ghost" href="/catalog">Browse catalog</a></p></section>
+<h2>Featured perfumes</h2><div class="grid">{% for p in featured %}<div class="card"><h3><a href="/product/{{p.id}}">{{p.name}}</a></h3><p class="tag">{{p.category}} · {{p.fragrance}} · {{p.strength}}</p>
+<p>Notes: {{p.top}}; {{p.middle}}; {{p.base}}</p><p><b>Rs {{ "{:,}".format(p.price) }}</b> · {{p.stock}} in stock</p>
+{% if p.stock > 0 %}<form method="post" action="/cart/add/{{p.id}}"><button>Add to cart</button></form>{% else %}<p><b>Out of stock</b></p>{% endif %}
+{% if user %}<form method="post" action="/wishlist/toggle/{{p.id}}"><button class="ghost">♥ Wishlist</button></form>{% endif %}</div>{% endfor %}</div>{% endblock %}

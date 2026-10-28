@@ -1,0 +1,6 @@
+{% extends 'base.html' %}{% block t %}{{p.name}} · Velvet Bloom{% endblock %}{% block c %}<h1>{{p.name}}</h1><p class="tag">{{p.category}} · {{p.fragrance}} · {{p.strength}} · Rs {{ "{:,}".format(p.price) }} · {{p.stock}} in stock</p>
+<p>{{p.description}}</p><p><b>Top:</b> {{p.top}}<br><b>Middle:</b> {{p.middle}}<br><b>Base:</b> {{p.base}}</p><p><b>Occasions:</b> {{p.occasions}} · <b>Seasons:</b> {{p.seasons}}</p>
+{% if p.stock > 0 %}<form method="post" action="/cart/add/{{p.id}}"><button>Add to cart</button></form>{% else %}<p><b>Out of stock</b></p>{% endif %}
+{% if user %}<form method="post" action="/wishlist/toggle/{{p.id}}"><button class="ghost">♥ Wishlist</button></form>{% endif %}
+<h2>Similar perfumes (DNA matcher)</h2><ul>{% for n,sp,shared in sims %}<li><a href="/product/{{sp.id}}">{{sp.name}}</a> — shared notes: {{shared|join(', ')}}</li>{% else %}<li>No close note match.</li>{% endfor %}</ul>
+<h2>Reviews (sentiment is rule-based)</h2><ul>{% for r in reviews %}<li>{{r.rating}}/5 · {{r.sentiment}} — {{r.text}}</li>{% else %}<li>No reviews yet.</li>{% endfor %}</ul>{% endblock %}

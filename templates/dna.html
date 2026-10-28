@@ -1,0 +1,3 @@
+{% extends 'base.html' %}{% block t %}DNA Matcher · Velvet Bloom{% endblock %}{% block c %}<h1>Fragrance DNA Matcher</h1><p>Pick a perfume you already like. We find others sharing its notes.</p>
+<form method="post" class="form"><label>Your favourite perfume <select name="perfume_id">{% for p in items %}<option value="{{p.id}}">{{p.name}}</option>{% endfor %}</select></label><button>Find similar</button></form>
+{% if target %}<h2>Similar to {{target.name}}</h2><ul>{% for n,sp,shared in sims %}<li><a href="/product/{{sp.id}}">{{sp.name}}</a> — {{n}} shared notes: {{shared|join(', ')}}</li>{% else %}<li>No close match.</li>{% endfor %}</ul>{% endif %}{% endblock %}

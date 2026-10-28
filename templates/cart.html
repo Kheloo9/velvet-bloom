@@ -1,0 +1,2 @@
+{% extends 'base.html' %}{% block t %}Cart · Velvet Bloom{% endblock %}{% block c %}<h1>Cart</h1>{% if items %}<ul>{% for p,q in items %}<li>{{p.name}} × {{q}} — Rs {{ "{:,}".format(p.price*q) }} <form method="post" action="/cart/remove/{{p.id}}" style="display:inline"><button class="ghost">Remove</button></form></li>{% endfor %}</ul>
+<p><b>Total (server-verified): Rs {{ "{:,}".format(total) }}</b></p><p><a class="btn" href="/checkout">Checkout (Demo / COD)</a></p>{% else %}<p>Cart is empty.</p>{% endif %}{% endblock %}
